@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addContact, deleteContact, filterContacts } from "./redux/actions";
 import { store } from "./redux/store";
@@ -6,6 +6,10 @@ import shortid from "shortid";
 import ContactForm from "./components/ContactForm/ContactForm ";
 import Filter from "./components/Filter/Filter";
 import ContactList from "./components/ContactList/ContactList";
+// -----------------------
+import { getContactsFromServer } from "./redux/actions";
+import { getContactsFetch } from "./api/fetches";
+// -----------------------
 
 export default function App() {
   const [name, setName] = useState();
@@ -34,21 +38,21 @@ export default function App() {
   }
 
   function handleAddContact() {
-    if (
-      contacts.find((contact) => {
-        return contact.name === name;
-      })
-    ) {
-      alert(`${name} is already in contacts`);
-    } else {
-      const newContact = {
-        key: shortid.generate(),
-        name: name,
-        number: number,
-      };
-
-      dispatch(addContact(newContact));
-    }
+    // ___________________________________
+    // if (
+    //   contacts.find((contact) => {
+    //     return contact.name === name;
+    //   })
+    // ) {
+    //   alert(`${name} is already in contacts`);
+    // } else {
+    //   const newContact = {
+    //     key: shortid.generate(),
+    //     name: name,
+    //     number: number,
+    //   };
+    //   dispatch(addContact(newContact));
+    // }
   }
 
   function filterer(evt) {
@@ -61,6 +65,18 @@ export default function App() {
     dispatch(deleteContact(id));
   }
 
+  // -------------------------------
+  useEffect(() => {
+    console.log("hey");
+    // dispatch(getContactsFromServer());
+  });
+  dispatch(getContactsFromServer());
+  // const a = getContactsFetch();
+  // console.log(a);
+  // console.log(getContactsFetch().then((res) => console.log(res)));
+
+  // -------------------------------
+
   return (
     <div className="container">
       <h1>Phonebook</h1>
@@ -70,14 +86,14 @@ export default function App() {
       />
 
       <h2>Contacts</h2>
-      <Filter filterContacts={filterer} />
+      {/* <Filter filterContacts={filterer} /> */}
 
-      <ContactList
+      {/* <ContactList
         filter={filter}
         contacts={contacts}
         key={contacts.key}
         deleteContact={removeContact}
-      />
+      /> */}
     </div>
   );
 }

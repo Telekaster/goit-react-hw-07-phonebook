@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./ContactList.css";
 
 export default function ContactList({ filter, contacts, deleteContact }) {
+  console.log(contacts);
   return (
     <div className="contacts">
       <ul className="contacts__list">
@@ -23,9 +24,9 @@ export default function ContactList({ filter, contacts, deleteContact }) {
               );
             })
           : contacts
-              .filter((item) =>
-                item.name.toLowerCase().includes(filter.toLowerCase())
-              )
+              .filter((item) => {
+                item.name.toLowerCase().includes(filter.name.toLowerCase());
+              })
               .map((item) => {
                 return (
                   <li key={item.key}>
