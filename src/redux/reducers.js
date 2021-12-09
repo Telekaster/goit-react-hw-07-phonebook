@@ -23,6 +23,14 @@ const contactReducer = createReducer([], {
   },
 });
 
+// ---------------------------------------------
+const loadingReducer = createReducer(true, {
+  [getContactsFromServer.pending]: () => true,
+  [getContactsFromServer.fulfilled]: () => false,
+  [getContactsFromServer.rejected]: () => true,
+});
+// ---------------------------------------------
+
 const filterReducer = createReducer("", {
   [filterContacts]: (state, { payload }) => {
     return (state = payload);
@@ -32,4 +40,5 @@ const filterReducer = createReducer("", {
 export const reducers = combineReducers({
   contactReducer,
   filterReducer,
+  loadingReducer,
 });

@@ -8,7 +8,7 @@ import Filter from "./components/Filter/Filter";
 import ContactList from "./components/ContactList/ContactList";
 // -----------------------
 import { getContactsFromServer } from "./redux/actions";
-import { getContactsFetch } from "./api/fetches";
+
 // -----------------------
 
 export default function App() {
@@ -68,12 +68,8 @@ export default function App() {
   // -------------------------------
   useEffect(() => {
     console.log("hey");
-    // dispatch(getContactsFromServer());
-  });
-  dispatch(getContactsFromServer());
-  // const a = getContactsFetch();
-  // console.log(a);
-  // console.log(getContactsFetch().then((res) => console.log(res)));
+    dispatch(getContactsFromServer());
+  }, []);
 
   // -------------------------------
 
@@ -86,14 +82,8 @@ export default function App() {
       />
 
       <h2>Contacts</h2>
-      {/* <Filter filterContacts={filterer} /> */}
-
-      {/* <ContactList
-        filter={filter}
-        contacts={contacts}
-        key={contacts.key}
-        deleteContact={removeContact}
-      /> */}
+      <Filter filterContacts={filterer} />
+      <ContactList filter={filter} deleteContact={removeContact} />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { getContactsFetch } from "../api/fetches";
+// import { getContactsFetch } from "../api/fetches";
 
 export const addContact = createAction("phonebook/add", (contact) => {
   return {
@@ -24,11 +24,10 @@ export const getContactsFromServer = createAsyncThunk(
     const contacts = await fetch(
       "https://61b2044cc8d4640017aaf12a.mockapi.io/contacts"
     ).then((response) => {
-      //   console.log(response);
       return response.json();
     });
 
-    console.log(contacts);
+    // console.log(contacts);
     return contacts;
   }
 );
