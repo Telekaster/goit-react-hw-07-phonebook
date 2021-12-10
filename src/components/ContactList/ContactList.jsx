@@ -9,6 +9,9 @@ export default function ContactList({ filter, deleteContact }) {
   const contacts = useSelector((store) => {
     return store.contactReducer;
   });
+  const filterValue = useSelector((store) => {
+    return store.filterReducer;
+  });
 
   return (
     <div className="contacts">
@@ -31,10 +34,12 @@ export default function ContactList({ filter, deleteContact }) {
             );
           })}
         {!isLoading &&
-          filter !== "" &&
+          filterValue !== "" &&
           contacts[0]
             .filter((item) => {
-              item.name.toLowerCase().includes(filter.name.toLowerCase());
+              return item.name
+                .toLowerCase()
+                .includes(filterValue.toLowerCase());
             })
             .map((item) => {
               return (

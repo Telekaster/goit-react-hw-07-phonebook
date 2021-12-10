@@ -1,6 +1,6 @@
 import React from "react";
 
-function Filter({ filterContacts }) {
+export default function Filter({ filterContacts }) {
   return (
     <div>
       <p>Find contacts by name</p>
@@ -8,5 +8,3 @@ function Filter({ filterContacts }) {
     </div>
   );
 }
-
-export default Filter;
