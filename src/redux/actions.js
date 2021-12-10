@@ -1,5 +1,5 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { getContactsFetch } from "../api/fetches";
+import { getContactsFetch, removeContactsFetch } from "../api/fetches";
 
 export const addContact = createAction("phonebook/add", (contact) => {
   return {
@@ -22,7 +22,16 @@ export const getContactsFromServer = createAsyncThunk(
   "contacts/get",
   async () => {
     const contacts = getContactsFetch();
-
     return contacts;
+  }
+);
+
+export const removeContactsFromServer = createAsyncThunk(
+  "contacts/delete",
+  async (id) => {
+    await removeContactsFetch(id);
+
+    const newContact = await getContactsFetch();
+    return newContact;
   }
 );

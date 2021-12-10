@@ -44,7 +44,7 @@ export default function ContactList({ filter, deleteContact }) {
             .map((item) => {
               return (
                 <li key={item.id}>
-                  {`${item.name}: ${item.number}`}{" "}
+                  {`${item.name}: ${item.phone}`}
                   <button
                     onClick={deleteContact}
                     type="button"
