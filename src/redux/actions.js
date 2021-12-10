@@ -1,23 +1,14 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { getContactsFetch, removeContactsFetch } from "../api/fetches";
-
-export const addContact = createAction("phonebook/add", (contact) => {
-  return {
-    payload: { ...contact },
-  };
-});
-
-export const deleteContact = createAction("phonebook/remove", (contact) => {
-  return {
-    payload: { ...contact },
-  };
-});
+import {
+  getContactsFetch,
+  removeContactsFetch,
+  addContactFetch,
+} from "../api/fetches";
 
 export const filterContacts = createAction("phonebook/filter", (value) => {
   return { payload: value };
 });
 
-// ------------------------------------------------------------------------
 export const getContactsFromServer = createAsyncThunk(
   "contacts/get",
   async () => {
@@ -33,5 +24,15 @@ export const removeContactsFromServer = createAsyncThunk(
 
     const newContact = await getContactsFetch();
     return newContact;
+  }
+);
+
+export const addContactToServer = createAsyncThunk(
+  "contact/add",
+  async (contact) => {
+    await addContactFetch(contact);
+
+    const upgradedContact = await getContactsFetch();
+    return upgradedContact;
   }
 );

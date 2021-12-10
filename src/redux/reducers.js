@@ -1,13 +1,13 @@
-import { createReducer } from "@reduxjs/toolkit";
-import { addContact, deleteContact, filterContacts } from "./actions";
 import { combineReducers } from "redux";
-// ------------------------------------------------
-import { getContactsFromServer, removeContactsFromServer } from "./actions";
+import { createReducer } from "@reduxjs/toolkit";
+import {
+  filterContacts,
+  addContactToServer,
+  getContactsFromServer,
+  removeContactsFromServer,
+} from "./actions";
 
 const contactReducer = createReducer([], {
-  // [addContact]: (state, { payload }) => [...state, payload],
-  // ---------------------------------------
-
   [getContactsFromServer.fulfilled]: (state, { payload }) => [
     ...state,
     payload,
@@ -15,9 +15,10 @@ const contactReducer = createReducer([], {
   [removeContactsFromServer.fulfilled]: (state, { payload }) => [
     (state = payload),
   ],
+
+  [addContactToServer.fulfilled]: (state, { payload }) => [(state = payload)],
 });
 
-// ---------------------------------------------
 const loadingReducer = createReducer(true, {
   [getContactsFromServer.pending]: () => true,
   [getContactsFromServer.fulfilled]: () => false,
@@ -26,7 +27,6 @@ const loadingReducer = createReducer(true, {
   [removeContactsFromServer.fulfilled]: () => false,
   [removeContactsFromServer.rejected]: () => false,
 });
-// ---------------------------------------------
 
 const filterReducer = createReducer("", {
   [filterContacts]: (state, { payload }) => {
